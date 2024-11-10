@@ -1,0 +1,62 @@
+server:
+  port: 8015
+
+spring:
+  application:
+    name: netflix-zuul-api-gateway-server
+
+zuul:
+  prefix: /api
+  host:
+    connection-timeout-millis: 200000
+    socket-timeout-millis: 600000
+  sensitiveHeaders:
+  ignoredServices: '*'      
+  routes:
+    curable:
+      serviceId: curable-disease-service
+      url: http://localhost:8020
+      
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://curable:curable@localhost:8082/eureka/
+  instance:
+    metadata-map:
+        instanceId: $(spring:application:name):$(server:port)    
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    
+ribbon: 
+  ConnectTimeout: 200000
+  ReadTimeout: 200000
+ 
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 200000
+            
+zuul.debug.request: true
+
+
+keycloak:
+  auth-server-url: http://172.31.34.213:8022
+  principal-attribute: preferred_username
+  public-client: true
+  realm: curable
+  resource: curable-project
+keycloak-admin:
+  clientId: admin-cli
+  realm: master
+  serverUrl: http://172.31.34.213:8022
+  username: admin
+  userrealm: curable  
+  password: cureall2024!$
+
+gateway:
+ unsecure_default: ['/token/authenticate','/actuator/info','/login','/logout','/validateTocken'] 
+ unsecure_visibility: ['/api/']
+ 

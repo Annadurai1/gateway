@@ -1,0 +1,52 @@
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          netflix: trace
+zuul.include-debug-header: true  
+security:
+  jwt:
+    token:
+      expire-length: 21600000
+      secret-key: curable-secret-key
+      static: 
+         years: 5
+         interval: YEARS      
+server:
+  connection-timeout: 10800000
+  
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 128MB
+      max-request-size: 128MB
+  profiles:
+    active: dev
+  main.allow-bean-definition-overriding: true
+  
+management.health.elasticsearch.enabled: false
+mail.subject.prefix: ''
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - health
+        - info
+        - prometheus
+        
+curable:
+ ribbon:
+   NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
+   
+log:
+ timezone: IST
+ path: D:/logs
+
+gateway:
+  forbiddenUser:
+    - devdaslok
+    - anna 
+

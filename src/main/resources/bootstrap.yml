@@ -1,0 +1,12 @@
+#encrypt:
+#  key: 86pM5uy5!QBzXMN24
+#  keyStore:
+#    location: file:/home/ubuntu/config/configserver.jks
+#    password: 86pM5uy5!QBzXMN24
+#    alias: key
+#    secret: 86pM5uy5!QBzXMN24
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" 
